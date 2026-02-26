@@ -1,0 +1,21 @@
+name: Sync from upstream
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: aormsby/Fork-Sync-With-Upstream-action@v3
+        with:
+          upstream_repo: ourongxing/newsnow
+          upstream_branch: main
+          target_branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
